@@ -12,7 +12,14 @@
         	{
         		var am = window.plugins.accountmanager;
         		
-        		am.getAccountsByType(null, function(error, accounts)
+        		// Explicitly add an account for testing
+        		am.addAccountExplicitly('com.polychrom.examples.TestType', 'bob', 'password', null, function(error, bob)
+        		{
+        			alert(error);
+        			alert(bob.id);
+        		});
+
+        		am.getAccountsByType('com.polychrom.examples.TestType', function(error, accounts)
         		{
         			if(error)
         			{
