@@ -55,14 +55,20 @@ Basic Usage (Authenticator based handling)
 Project Setup
 -------------
 
-### Installation
+### Installation - Cordova Command Line
+
+No Need to Copy or edit any file manually. Just Run Following Command and you are ready to use (See Basic Usage above) Account Manager.
+
+$ cordova plugin add https://github.com/vishalkardode/cordova-android-accountmanager.git
+
+### Installation - Manual ( Step 1 )
 
 1. Copy (or link) all the .java files into your project src (under the appropriate com.polychrom.cordova package).
 2. Copy accountmanager.js into your cordova app's www directory
 3. Add `<script charset="utf-8" src="accountmanager.js"></script>` to your cordova app's HTML.
 4. Copy (or link) authenticator.xml to your project's res/xml/ folder.
 
-### Authenticator Service
+### Installation - Manual ( Step 2 ) - Edit Android Manifest for Authenticator Service
 
 To register the AuthenticatorService with your application, the following will need to be added to your manifest's application element:
 
@@ -74,7 +80,7 @@ To register the AuthenticatorService with your application, the following will n
 		<meta-data android:name="android.accounts.AccountAuthenticator" android:resource="@xml/authenticator" />
 	</service>
 
-### Permissions
+### Installation - Manual ( Step 3 ) - Add Permissions
 
 Depending on the level of usage, the following permissions may be required by the plugin for correct usage:
 
