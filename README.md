@@ -57,9 +57,9 @@ Project Setup
 
 ### Installation - Cordova Command Line
 
-No Need to Copy or edit any file manually. Just Run Following Command and you are ready to use (See Basic Usage above) Account Manager.
+No Need to Copy or edit any file manually. Just Run Following Command and you are ready to use Account Manager (See Basic Usage above).
 
-$ cordova plugin add https://github.com/vishalkardode/cordova-android-accountmanager.git
+	$ cordova plugin add https://github.com/vishalkardode/cordova-android-accountmanager.git
 
 ### Installation - Manual ( Step 1 )
 
