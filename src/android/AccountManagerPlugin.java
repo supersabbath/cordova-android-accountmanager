@@ -41,7 +41,7 @@ public class AccountManagerPlugin extends CordovaPlugin
 	// Naive int to account mapping so our JS can simply reference native objects
 	Integer accumulator = 0;
 	HashMap<Integer, Account> accounts = new HashMap<Integer, Account>();
-	
+
 	private Integer indexForAccount(Account account)
 	{
 		for(Entry<Integer, Account> e: accounts.entrySet())
@@ -51,7 +51,7 @@ public class AccountManagerPlugin extends CordovaPlugin
 				return e.getKey();
 			}
 		}
-		
+
 		accounts.put(accumulator, account);
 		return accumulator++;
 	}
@@ -70,19 +70,19 @@ public class AccountManagerPlugin extends CordovaPlugin
 			{
 				Account[] account_list = manager.getAccountsByType(args.isNull(0)? null : args.getString(0));
 				JSONArray result = new JSONArray();
-				
+
 				for(Account account: account_list)
 				{
 					Integer index = indexForAccount(account);
 					accounts.put(index, account);
-	
+
 					JSONObject account_object = new JSONObject();
 					account_object.put("_index", (int)index);
 					account_object.put("name", account.name);
 					account_object.put("type", account.type);
 					result.put(account_object);
 				}
-	
+
 				callbackContext.success(result);
 				return true;
 			}
@@ -103,10 +103,10 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("password can not be null or empty");
 					return true;
 				}
-	
+
 				Account account = new Account(args.getString(1), args.getString(0));
 				Integer index = indexForAccount(account);
-	
+
 				Bundle userdata = new Bundle();
 				if(!args.isNull(3))
 				{
@@ -121,20 +121,20 @@ public class AccountManagerPlugin extends CordovaPlugin
 						}
 					}
 				}
-	
+
 				if(false == manager.addAccountExplicitly(account, args.getString(2), userdata))
 				{
 					callbackContext.error("Account with username already exists!");
 					return true;
 				}
-				
+
 				accounts.put(index, account);
-				
+
 				JSONObject result = new JSONObject();
 				result.put("_index", (int)index);
 				result.put("name", account.name);
 				result.put("type", account.type);
-	
+
 				callbackContext.success(result);
 				return true;
 			}
@@ -145,14 +145,14 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("account can not be null");
 					return true;
 				}
-				
+
 				Account account = accounts.get(args.getInt(0));
 				if(account == null)
 				{
 					callbackContext.error("Invalid account");
 					return true;
 				}
-	
+
 				callbackContext.error("Not yet implemented");
 				return true;
 			}
@@ -163,14 +163,14 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("account can not be null");
 					return true;
 				}
-				
+
 				Account account = accounts.get(args.getInt(0));
 				if(account == null)
 				{
 					callbackContext.error("Invalid account");
 					return true;
 				}
-				
+
 				manager.clearPassword(account);
 				callbackContext.success();
 				return true;
@@ -182,7 +182,7 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("account can not be null");
 					return true;
 				}
-				
+
 				int index = args.getInt(0);
 				Account account = accounts.get(index);
 				if(account == null)
@@ -190,7 +190,7 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("Invalid account");
 					return true;
 				}
-				
+
 				// TODO: Add support for AccountManager (callback)
 				AccountManagerFuture<Boolean> future = manager.removeAccount(account, null, null);
 				try
@@ -217,7 +217,7 @@ public class AccountManagerPlugin extends CordovaPlugin
 				{
 					callbackContext.error("IO error: " + e.getLocalizedMessage());
 				}
-				
+
 				return true;
 			}
 			else if("setAuthToken".equals(action))
@@ -237,14 +237,14 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("authToken can not be null or empty");
 					return true;
 				}
-				
+
 				Account account = accounts.get(args.getInt(0));
 				if(account == null)
 				{
 					callbackContext.error("Invalid account");
 					return true;
 				}
-				
+
 				manager.setAuthToken(account, args.getString(1), args.getString(2));
 				callbackContext.success();
 				return true;
@@ -261,14 +261,14 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("authTokenType can not be null or empty");
 					return true;
 				}
-				
+
 				Account account = accounts.get(args.getInt(0));
 				if(account == null)
 				{
 					callbackContext.error("Invalid account");
 					return true;
 				}
-				
+
 				JSONObject result = new JSONObject();
 				result.put("value", manager.peekAuthToken(account, args.getString(1)));
 				callbackContext.success(result);
@@ -291,17 +291,17 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("notifyAuthFailure can not be null");
 					return true;
 				}
-				
+
 				Account account = accounts.get(args.getInt(0));
 				if(account == null)
 				{
 					callbackContext.error("Invalid account");
 					return true;
 				}
-				
+
 				Bundle options = new Bundle();
 				// TODO: Options support (will be relevent when we support AccountManagers)
-				
+
 				// TODO: AccountManager support
 				AccountManagerFuture<Bundle> future = manager.getAuthToken(account, args.getString(1), options, args.getBoolean(3), null, null);
 				try
@@ -322,7 +322,7 @@ public class AccountManagerPlugin extends CordovaPlugin
 				{
 					callbackContext.error("IO error: " + e.getLocalizedMessage());
 				}
-				
+
 				return true;
 			}
 			else if("setPassword".equals(action))
@@ -337,14 +337,14 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("password can not be null or empty");
 					return true;
 				}
-				
+
 				Account account = accounts.get(args.getInt(0));
 				if(account == null)
 				{
 					callbackContext.error("Invalid account");
 					return true;
 				}
-				
+
 				manager.setPassword(account, args.getString(1));
 				callbackContext.success();
 				return true;
@@ -356,14 +356,14 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("account can not be null");
 					return true;
 				}
-				
+
 				Account account = accounts.get(args.getInt(0));
 				if(account == null)
 				{
 					callbackContext.error("Invalid account");
 					return true;
 				}
-	
+
 				JSONObject result = new JSONObject();
 				result.put("value", manager.getPassword(account));
 				callbackContext.success(result);
@@ -386,18 +386,58 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("value can not be null or empty");
 					return true;
 				}
-				
+
 				Account account = accounts.get(args.getInt(0));
 				if(account == null)
 				{
 					callbackContext.error("Invalid account");
 					return true;
 				}
-	
+
 				manager.setUserData(account, args.getString(1), args.getString(2));
 				callbackContext.success();
 				return true;
 			}
+            else if ("setUserDataInBatchMode".equals(action)){
+
+                if(args.isNull(0))
+                {
+                    callbackContext.error("account can not be null");
+                    return true;
+                }
+                else if(args.isNull(1))
+                {
+                    callbackContext.error("Dictionary can't be nil");
+                    return true;
+                }
+
+
+                Account account = accounts.get(args.getInt(0));
+                if(account == null)
+                {
+                    callbackContext.error("Invalid account");
+                    return true;
+                }
+
+
+                JSONObject userdata_json = args.getJSONObject(1);
+
+                    if(userdata_json != null)
+                    {
+                        Iterator<String> keys = userdata_json.keys();
+                        while(keys.hasNext())
+                        {
+                            String key = keys.next();
+
+                            manager.setUserData(account, key, userdata_json.getString(key));
+
+                        }
+
+                        callbackContext.success();
+                        return true;
+                    }
+
+            }
 			else if("getUserData".equals(action))
 			{
 				if(args.isNull(0))
@@ -410,19 +450,61 @@ public class AccountManagerPlugin extends CordovaPlugin
 					callbackContext.error("key can not be null or empty");
 					return true;
 				}
-				
+
 				Account account = accounts.get(args.getInt(0));
 				if(account == null)
 				{
 					callbackContext.error("Invalid account");
 					return true;
 				}
-	
+
 				JSONObject result = new JSONObject();
 				result.put("value", manager.getUserData(account, args.getString(1)));
 				callbackContext.success(result);
 				return true;
 			}
+            else if("getUserDataInBatchMode".equals(action)){
+
+
+                if(args.isNull(0))
+                {
+                    callbackContext.error("account can not be null");
+                    return true;
+                }
+                else if(args.isNull(1))
+                {
+                    callbackContext.error("Dictionary can't be nil");
+                    return true;
+                }
+
+
+                Account account = accounts.get(args.getInt(0));
+                if(account == null)
+                {
+                    callbackContext.error("Invalid account");
+                    return true;
+                }
+
+
+                JSONObject userdata_json = args.getJSONObject(1);
+
+                if(userdata_json != null)
+                {
+                    Iterator<String> keys = userdata_json.keys();
+                    JSONObject result = new JSONObject();
+
+                    while(keys.hasNext()) {
+                        String key = keys.next();
+                        result.put(key, manager.getUserData(account, userdata_json.getString(key)));
+
+                    }
+
+                    callbackContext.success(result);
+
+                }
+                return true;
+
+            }
 		}
 		catch(SecurityException e)
 		{

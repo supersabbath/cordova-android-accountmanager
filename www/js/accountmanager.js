@@ -7,90 +7,106 @@ var AccountManager = function() {};
 
 AccountManager.prototype.getAccountsByType = function(type, callback)
 {
-	return cordova.exec(
-		function(accounts) { callback(undefined, accounts) },
-		callback,
-		'AccountManager', 'getAccountsByType', [type]);
+    return cordova.exec(
+        function(accounts) { callback(undefined, accounts) },
+        callback,
+        'AccountManager', 'getAccountsByType', [type]);
 };
 
 AccountManager.prototype.addAccountExplicitly = function(accountType, username, password, userdata, callback)
 {
-	return cordova.exec(
-		function(account) { callback(undefined, account) },
-		callback,
-		'AccountManager', 'addAccountExplicitly', [accountType, username, password, userdata]);
+    return cordova.exec(
+        function(account) { callback(undefined, account) },
+        callback,
+        'AccountManager', 'addAccountExplicitly', [accountType, username, password, userdata]);
 };
 
 AccountManager.prototype.clearPassword = function(account, callback)
 {
-	return cordova.exec(
-		function() { callback(); },
-		callback,
-		'AccountManager', 'clearPassword', [account._index]);
+    return cordova.exec(
+        function() { callback(); },
+        callback,
+        'AccountManager', 'clearPassword', [account._index]);
 };
 
 AccountManager.prototype.removeAccount = function(account, callback)
 {
-	return cordova.exec(
-		function() { callback(); },
-		callback,
-		'AccountManager', 'removeAccount', [account._index]);
+    return cordova.exec(
+        function() { callback(); },
+        callback,
+        'AccountManager', 'removeAccount', [account._index]);
 };
 
 AccountManager.prototype.setAuthToken = function(account, authTokenType, authToken, callback)
 {
-	return cordova.exec(
-		function() { callback(); },
-		callback,
-		'AccountManager', 'setAuthToken', [account._index, authTokenType, authToken]);
+    return cordova.exec(
+        function() { callback(); },
+        callback,
+        'AccountManager', 'setAuthToken', [account._index, authTokenType, authToken]);
 };
 
 AccountManager.prototype.peekAuthToken = function(account, authTokenType, callback)
 {
-	return cordova.exec(
-		function(result) { callback(undefined, result.value); },
-		callback,
-		'AccountManager', 'peekAuthToken', [account._index, authTokenType]);
+    return cordova.exec(
+        function(result) { callback(undefined, result.value); },
+        callback,
+        'AccountManager', 'peekAuthToken', [account._index, authTokenType]);
 };
 
 AccountManager.prototype.getAuthToken = function(account, authTokenType, callback)
 {
-	return cordova.exec(
-		function(result) { callback(undefined, result.value); },
-		callback,
-		'AccountManager', 'getAuthToken', [account, authTokenType]);
+    return cordova.exec(
+        function(result) { callback(undefined, result.value); },
+        callback,
+        'AccountManager', 'getAuthToken', [account, authTokenType]);
 };
 
 AccountManager.prototype.setPassword = function(account, password, callback)
 {
-	return cordova.exec(
-		function() { callback(); },
-		callback,
-		'AccountManager', 'setPassword', [account._index, password]);
+    return cordova.exec(
+        function() { callback(); },
+        callback,
+        'AccountManager', 'setPassword', [account._index, password]);
 };
 
 AccountManager.prototype.getPassword = function(account, callback)
 {
-	return cordova.exec(
-		function(result) { callback(undefined, result.value); },
-		callback,
-		'AccountManager', 'getPassword', [account._index]);
+    return cordova.exec(
+        function(result) { callback(undefined, result.value); },
+        callback,
+        'AccountManager', 'getPassword', [account._index]);
 };
 
 AccountManager.prototype.setUserData = function(account, key, value, callback)
 {
-	return cordova.exec(
-		function() { callback(); },
-		callback,
-		'AccountManager', 'setUserData', [account._index, key, value]);
+    return cordova.exec(
+        function() { callback(); },
+        callback,
+        'AccountManager', 'setUserData', [account._index, key, value]);
+};
+
+AccountManager.prototype.setUserDataInBatchMode = function(account,dictionary, callback)
+{
+    return cordova.exec(
+        function() { callback(); },
+        callback,
+        'AccountManager', 'setUserDataInBatchMode', [account._index, dictionary]);
 };
 
 AccountManager.prototype.getUserData = function(account, key, callback)
 {
-	return cordova.exec(
-		function(result) { callback(undefined, result.value); },
-		callback,
-		'AccountManager', 'getUserData', [account._index, key]);
+    return cordova.exec(
+        function(result) { callback(undefined, result.value); },
+        callback,
+        'AccountManager', 'getUserData', [account._index, key]);
+};
+
+AccountManager.prototype.getUserDataInBatchMode = function(account,dictionary, callback)
+{
+    return cordova.exec(
+        function(result) { callback(undefined,result); },
+        callback,
+        'AccountManager', 'getUserDataInBatchMode', [account._index, dictionary]);
 };
 
 if(!window.plugins) window.plugins = {};

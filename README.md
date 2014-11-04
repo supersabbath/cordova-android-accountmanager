@@ -46,6 +46,23 @@ Basic Usage (Explicit account handling)
 		am.removeAccount(bob);
 	});
 
+	****************************************************************************
+		New method added, setUserDataInbBatchMode and getUserDataInBacthMode
+
+  ac.setUserDataInBatchMode(pushClientAccount, userData, function (data) {
+    // set an object in the account manager, using the object's key-value attribute  {user:"abc", whatever:"bla",pw:"123"}
+  });
+
+
+  am.getUserDataInBatchMode(account, DICTIONARY, function (error, restoredValue) {
+        // DICTIONARY , should contain de keys that are retrieved from de account manager
+        // {user:"", whatever:"",pw:""}
+  }
+
+  *************************************** Also added:
+
+  /hook/
+
 Basic Usage (Authenticator based handling)
 -----
 
